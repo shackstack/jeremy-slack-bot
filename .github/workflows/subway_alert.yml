@@ -1,0 +1,32 @@
+name: 🚇 퇴근 지하철 알림
+
+on:
+  schedule:
+    - cron: "30 9 * * 1-5" # UTC 05:35 = KST 14:35 (평일 월~금)
+  workflow_dispatch: # 슬랙에서 수동 테스트 가능
+
+jobs:
+  send-subway-alert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4.2.2
+
+      - name: Python 설치
+        uses: actions/setup-python@v5.4.0
+        with:
+          python-version: "3.11"
+
+      - name: 패키지 설치
+        run: pip install requests
+
+      - name: 🏃 충무로→신사 개인 맞춤 알림 전송
+        env:
+          SUBWAY_API_KEY: ${{ secrets.SUBWAY_API_KEY }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: python subway_personal_alert.py

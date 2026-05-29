@@ -1,7 +1,9 @@
 import requests
 from datetime import datetime
 
-from config import SLACK_WEBHOOK_URL, SUBWAY_API_KEY
+import os
+SUBWAY_API_KEY = os.environ.get("SUBWAY_API_KEY", "")
+SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL", "")
 
 # ===================== 설정 =====================
 DEPART_STATION = "충무로"   # 출발역
