@@ -2,7 +2,7 @@ name: 🚇 퇴근 지하철 알림
 
 on:
   schedule:
-    - cron: "30 9 * * 1-5" # UTC 05:35 = KST 14:35 (평일 월~금)
+    - cron: "54 5 * * 1-5" # UTC 05:35 = KST 14:35 (평일 월~금)
   workflow_dispatch: # 슬랙에서 수동 테스트 가능
 
 jobs:
